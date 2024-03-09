@@ -1,9 +1,17 @@
 #!/usr/bin/env bash
 # Sets up web server
 
+sudo apt update
+sudo apt -y upgrade
+sudo apt install -y nginx
+
 mkdir -p "/data/web_static/releases/test"
 mkdir -p "/data/web_static/shared"
-echo "Testing fake file" > "/data/web_static/releases/test/index.html"
+echo -e "<html>\n\
+<head><title>Fake Site</title></head>\n\
+<body>This is a Test Page</body>\n\
+</html>" \
+> "/data/web_static/releases/test/index.html"
 
 serv_name=$(hostname)
 sym_path=/data/web_static/current
@@ -20,7 +28,7 @@ red_val="location /redirect_me {\n\
         }"
 
 add_static="location /hbnb_static {\n\
-	    	alias /data/web_static/current;\n\
+	    	alias /data/web_static/current/;\n\
 	}"
 
 add_val="error_page 404 /404-def.html;\n\
