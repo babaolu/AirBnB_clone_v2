@@ -30,7 +30,7 @@ class DBStorage:
 
         self.__engine = create_engine("{}+{}://{}:{}@{}/{}".format(
             dialect, driver, user, pwd, host, db
-        ), pool_pre_ping=True)
+        ), pool_pre_ping=True, future=True)
 
         if env == 'test':
             Base.metadata.drop_all(self.__engine)

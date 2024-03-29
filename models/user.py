@@ -14,23 +14,25 @@ class User(BaseModel, Base):
         """ Setting up initialization for the User class
             *args: Is not been used
         """
-        if getenv("HBNB_TYPE_STORAGE") != "db":
-            super().__init__(**kwargs)
-            class_attr = ["email", "password", "first_name", "last_name"]
-            self.email = ""
-            self.password = ""
-            self.first_name = ""
-            self.last_name = ""
-            if kwargs:
-                sub_dict = {k: kwargs[k] for k in class_attr if kwargs.get(k)}
-                self.__dict__.update(sub_dict)
+        super().__init__(**kwargs)
+        class_attr = ["email", "password", "first_name", "last_name"]
+        self.email = ""
+        self.password = ""
+        self.first_name = ""
+        self.last_name = ""
+        if kwargs:
+            for k in class_attr:
+                val = kwargs.get(k)
+                if val:
+                    setattr(self, k, val)
 
-    email = Column(String(128), nullable=False)
-    password = Column(String(128), nullable=False)
-    first_name = Column(String(128))
-    last_name = Column(String(128))
+    if getenv("HBNB_TYPE_STORAGE") == "db":
+        email = Column(String(128), nullable=False)
+        password = Column(String(128), nullable=False)
+        first_name = Column(String(128))
+        last_name = Column(String(128))
 
-    places = relationship('Place', backref='user',
-                          cascade='all, delete-orphan')
-    reviews = relationship('Review', backref='user',
-                           cascade='all, delete-orphan')
+        places = relationship('Place', backref='user',
+                              cascade='all, delete-orphan')
+        reviews = relationship('Review', backref='user',
+                               cascade='all, delete-orphan')

@@ -15,17 +15,17 @@ class State(BaseModel, Base):
         """ Setting up initialization for the State class
             *args: Is not been used
         """
-        if getenv("HBNB_TYPE_STORAGE") != "db":
-            super().__init__(**kwargs)
-            class_attr = ["name"]
-            self.name = ""
-            if kwargs:
-                sub_dict = {k: kwargs[k] for k in class_attr if kwargs.get(k)}
-                self.__dict__.update(sub_dict)
+        super().__init__(**kwargs)
+        class_attr = ["name"]
+        self.name = ""
+        if kwargs:
+             for k in class_attr:
+                val = kwargs.get(k)
+                if val:
+                    setattr(self, k, val)
 
-    name = Column(String(128), nullable=False)
-
-    if getenv('HBNB_TYPE_STORAGE') == 'db':
+    if getenv("HBNB_TYPE_STORAGE") == "db":
+        name = Column(String(128), nullable=False)
         cities = relationship('City', backref='state',
                               cascade='all, delete-orphan')
     else:
