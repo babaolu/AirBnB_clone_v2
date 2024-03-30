@@ -19,7 +19,7 @@ class City(BaseModel, Base):
         self.name = ""
         self.state_id = ""
         if kwargs:
-             for k in class_attr:
+            for k in class_attr:
                 val = kwargs.get(k)
                 if val:
                     setattr(self, k, val)

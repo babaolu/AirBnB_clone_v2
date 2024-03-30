@@ -52,7 +52,7 @@ class Place(BaseModel, Base):
         self.longitude = 0.0
         self.amenity_ids = []
         if kwargs:
-             for k in class_attr:
+            for k in class_attr:
                 val = kwargs.get(k)
                 if val:
                     setattr(self, k, val)

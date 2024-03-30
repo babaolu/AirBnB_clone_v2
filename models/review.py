@@ -19,7 +19,7 @@ class Review(BaseModel, Base):
         self.place_id = ""
         self.user_id = ""
         if kwargs:
-             for k in class_attr:
+            for k in class_attr:
                 val = kwargs.get(k)
                 if val:
                     setattr(self, k, val)

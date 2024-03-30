@@ -21,8 +21,10 @@ class BaseModel:
     if getenv("HBNB_TYPE_STORAGE") == "db":
         id = Column(String(60), nullable=False, primary_key=True,
                     default=str(uuid.uuid4()))
-        created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
-        updated_at = Column(DateTime, nullable=False, default=datetime.utcnow(),
+        created_at = Column(DateTime, nullable=False,
+                            default=datetime.utcnow())
+        updated_at = Column(DateTime, nullable=False,
+                            default=datetime.utcnow(),
                             onupdate=datetime.now())
 
     def __init__(self, *args, **kwargs):
@@ -44,10 +46,10 @@ class BaseModel:
 
             if 'updated_at' in kwargs:
                 self.updated_at = datetime.strptime(kwargs['updated_at'],
-                                                        '%Y-%m-%dT%H:%M:%S.%f')
+                                                    '%Y-%m-%dT%H:%M:%S.%f')
             if 'created_at' in kwargs:
                 self.created_at = datetime.strptime(kwargs['created_at'],
-                                                        '%Y-%m-%dT%H:%M:%S.%f')
+                                                    '%Y-%m-%dT%H:%M:%S.%f')
         storage.new(self)
 
     def __str__(self):

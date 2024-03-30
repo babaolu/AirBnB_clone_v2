@@ -19,7 +19,7 @@ class State(BaseModel, Base):
         class_attr = ["name"]
         self.name = ""
         if kwargs:
-             for k in class_attr:
+            for k in class_attr:
                 val = kwargs.get(k)
                 if val:
                     setattr(self, k, val)
